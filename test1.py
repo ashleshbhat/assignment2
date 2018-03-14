@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import os
-if sys.platfgit orm == 'darwin':
+if sys.platform == 'darwin':
     # OS X
     print ("using mac")
 elif sys.platform == 'win32':
