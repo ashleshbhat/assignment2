@@ -1,9 +1,4 @@
-#import sys
-#sys.path.append("C:/spark-2.2.1-bin-hadoop2.7/python")
-#sys.path.append("C:/spark-2.2.1-bin-hadoop2.7/python/lib/py4j-0.10.4-src.zip")
-#import os
-#os.environ['SPARK_HOME'] = "C:\spark-2.2.1-bin-hadoop2.7"
-#os.environ['HADOOP_HOME'] = "C:\spark-2.2.1-bin-hadoop2.7"
+
 import pyspark
 from pyspark import SparkContext
 from pyspark import SparkConf
