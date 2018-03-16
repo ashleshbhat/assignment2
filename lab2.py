@@ -54,4 +54,4 @@ for i in range(1,6):
 
 print (textContainer)
 textfile = open("Output.txt", "w")
-textfile.write(textContainer())
+textfile.write(textContainer)
