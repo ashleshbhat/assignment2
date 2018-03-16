@@ -7,7 +7,7 @@ from html.parser import HTMLParser
 from bs4 import BeautifulSoup as bs
 import re, time, psutil, os
 
-import StopWords
+# import StopWords
 # ================================
 # Functions
 def remove_duplicates(in_list):
@@ -29,7 +29,7 @@ def extract_text(stringSoup, Container):
 
 # ================================
 # get stopwords from list
-stopwords = StopWords.stopwordsList()
+# stopwords = StopWords.stopwordsList()
 # string to store the text
 textContainer = ""
 
@@ -54,4 +54,4 @@ for i in range(1,6):
 
 print (textContainer)
 textfile = open("Output.txt", "w")
-textfile.write(textContainer()
+textfile.write(textContainer())
