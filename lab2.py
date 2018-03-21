@@ -6,8 +6,9 @@ from urllib.request import urlopen
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup as bs
 import re, time, psutil, os
+from functools import reduce
 
-# import StopWords
+import StopWords
 # ================================
 # Functions
 def remove_duplicates(in_list):
@@ -30,6 +31,7 @@ def extract_text(stringSoup, Container):
 # ================================
 # get stopwords from list
 # stopwords = StopWords.stopwordsList()
+
 # string to store the text
 textContainer = ""
 
@@ -42,8 +44,8 @@ InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
 print("Started reading URL .....")
-for i in range(1,6):
-    print (i)
+for i in range(1,2):
+    print (i/2)
     # use BeautifulSoup to strip HTML tags
     soup = bs(InputText, "html.parser").find(id="main2")
     textContainer = extract_text(soup, textContainer) #.encode('utf-8')
@@ -52,6 +54,18 @@ for i in range(1,6):
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-print (textContainer)
-textfile = open("Output.txt", "w")
-textfile.write(textContainer)
+# print (textContainer)
+# textfile = open("Output.txt", "w")
+# textfile.write(textContainer)
+
+# inputTxt = open("input.txt","r")
+# for text in inputTxt.read():
+#     print(str(text))
+
+ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
+CountMap = map(lambda word: (word,1), ListOnlyAlpha)
+Reduced = reduce(lambda a,b: (a[0],a[1]+b[1]) if a[0] == b[0] else a , CountMap)
+# Reduced = reduce(lambda word,n: )
+
+
+# print(Count)
