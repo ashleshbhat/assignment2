@@ -54,18 +54,18 @@ for i in range(1,2):
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-# print (textContainer)
-# textfile = open("Output.txt", "w")
-# textfile.write(textContainer)
-
+print (textContainer)
+textfile = open("Output.txt", "w+")
+textfile.write(textContainer)
+textfile.close()
 # inputTxt = open("input.txt","r")
 # for text in inputTxt.read():
 #     print(str(text))
 
 ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
-CountMap = map(lambda word: (word,1), ListOnlyAlpha)
-Reduced = reduce(lambda a,b: (a[0],a[1]+b[1]) if a[0] == b[0] else a , CountMap)
+CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
+Reduced = (reduce(lambda a,b: a+b , CountMap))
+print(CountMap)
 # Reduced = reduce(lambda word,n: )
-
 
 # print(Count)
