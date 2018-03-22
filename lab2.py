@@ -5,7 +5,7 @@
 from urllib.request import urlopen
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup as bs
-import re, time, psutil, os
+import re, time, psutil, os, sys
 from functools import reduce
 
 import StopWords
@@ -55,6 +55,9 @@ for i in range(1,2):
     InputText = nextPage.read()
 
 print (textContainer)
+# use unicode for OS X
+if sys.platform == 'darwin':
+    textContainer = str(textContainer.encode('utf-8'))
 textfile = open("Output.txt", "w+")
 textfile.write(textContainer)
 textfile.close()
@@ -65,7 +68,7 @@ textfile.close()
 ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
 CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
 Reduced = (reduce(lambda a,b: a+b , CountMap))
-print(CountMap)
-# Reduced = reduce(lambda word,n: )
+print(Reduced)
+# Reduced = reduce(lambda word,n: )e
 
 # print(Count)
