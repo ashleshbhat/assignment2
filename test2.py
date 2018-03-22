@@ -12,16 +12,16 @@ logFile = open(logFilename)
 logData = logFile.read().replace('\n','').replace('-', ' ')
 logsplit = logData.split()
 
-def f1(listarg,listarg2):
-    if listarg2[0] in listarg:
-        pos = listarg.index(listarg2[0])
-        listnew = list(listarg)
+def f1(tuparg,tuparg2):
+    if tuparg2[0] in tuparg:
+        pos = tuparg.index(tuparg2[0])
+        listnew = list(tuparg)
         listnew[pos+1] +=1
-        listarg = tuple(listnew)
+        tuparg = tuple(listnew)
     else:
-        listarg +=listarg2
+        tuparg +=tuparg2
        
-    return listarg 
+    return tuparg 
 
 CountMap = tuple(map(lambda word: (word,1), logsplit))
 Reduced =tuple(reduce(lambda x,y: f1(x,y), CountMap))
