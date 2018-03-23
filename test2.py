@@ -20,13 +20,18 @@ def f1(tuparg,tuparg2):
         tuparg = tuple(listnew)
     else:
         tuparg +=tuparg2
+        tuparg = tuple(tuparg)
        
     return tuparg 
 
 CountMap = tuple(map(lambda word: (word,1), logsplit))
-Reduced =tuple(reduce(lambda x,y: f1(x,y), CountMap))
+Reduced =(reduce(lambda x,y: f1(x,y), CountMap))
+MyWord =  filter(lambda word :isinstance(word,str),Reduced )
+MyCount =  filter(lambda word :isinstance(word,int),Reduced )
+Mytuple = list(map(lambda word,count : (word,count), MyWord, MyCount))
+MySorted = Mytuple.sort(key = lambda tup : tup[1]) 
 
-print(Reduced)  
+print(MySorted)  
 
 t2 = time.time()
 
