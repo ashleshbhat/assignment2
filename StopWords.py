@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import re
 def stopwordsList ():
     stopwords = ['a', 'about', 'above', 'across', 'after', 'afterwards']
     stopwords += ['again', 'against', 'all', 'almost', 'alone', 'along'] 
@@ -51,6 +51,10 @@ def stopwordsList ():
     stopwords += ['whereafter', 'whereas', 'whereby', 'wherein', 'whereupon'] 
     stopwords += ['wherever', 'whether', 'which', 'while', 'whither', 'who'] 
     stopwords += ['whoever', 'whole', 'whom', 'whose', 'why', 'will', 'with'] 
-    stopwords += ['within', 'without', 'would', 'yet', 'you', 'your']
+    stopwords += ['within', 'without', 'would','yet', 'you', 'your']
     stopwords += ['yours', 'yourself', 'yourselves']
+    # stopwords += ['/\/\xc2/\/\xa0', 'xa', 'xc' ]
     return stopwords
+
+def clean_stopwords(str_in):
+    return re.compile('\\b'+'\\b|\\b'.join(stopwordsList())+'\\b').sub('',str_in) 

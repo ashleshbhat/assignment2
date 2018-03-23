@@ -20,7 +20,7 @@ from pyspark import SparkConf
 import time
 
 t1 = time.time()
-logFile = "README.md"  
+logFile = "output.txt"  
 sc = SparkContext("local", "first app")
 logData = sc.textFile(logFile).cache()  
 

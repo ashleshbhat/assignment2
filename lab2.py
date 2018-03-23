@@ -25,13 +25,10 @@ def extract_text(stringSoup, Container):
     for link in formTag.find_all('a'):
         string = link.get('href').replace("\n","")
         newTab = urlopen("https://www.oldbaileyonline.org/" + string)
-        Container += str(bs(newTab.read(), "html.parser").find(id="main2").get_text())
+        Container += str(bs(newTab.read(), "html.parser").find(id="main2").get_text().lower())
     return Container
 
 # ================================
-# get stopwords from list
-# stopwords = StopWords.stopwordsList()
-
 # string to store the text
 textContainer = ""
 
@@ -44,8 +41,8 @@ InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
 print("Started reading URL .....")
-for i in range(1,2):
-    print (i/2)
+for i in range(1,15):
+    print (i/15)
     # use BeautifulSoup to strip HTML tags
     soup = bs(InputText, "html.parser").find(id="main2")
     textContainer = extract_text(soup, textContainer) #.encode('utf-8')
@@ -59,16 +56,20 @@ print (textContainer)
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
 textfile = open("Output.txt", "w+")
+if sys.platform == 'darwin':
+    # OS X
+    textContainer = str(textContainer.encode('utf-8'))
 textfile.write(textContainer)
 textfile.close()
+print ("text file written")
 # inputTxt = open("input.txt","r")
 # for text in inputTxt.read():
 #     print(str(text))
 
-ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
-CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
-Reduced = (reduce(lambda a,b: a+b , CountMap))
-print(Reduced)
-# Reduced = reduce(lambda word,n: )e
+# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
+# CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
+# Reduced = (reduce(lambda a,b: a+b , CountMap))
+# print(CountMap)
+# Reduced = reduce(lambda word,n: )
 
 # print(Count)
