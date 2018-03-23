@@ -56,9 +56,6 @@ print (textContainer)
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
 textfile = open("Output.txt", "w+")
-if sys.platform == 'darwin':
-    # OS X
-    textContainer = str(textContainer.encode('utf-8'))
 textfile.write(textContainer)
 textfile.close()
 print ("text file written")
