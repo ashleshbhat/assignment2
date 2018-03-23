@@ -1,16 +1,24 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
+# ==================================
+# map reduce of python to count words
+# ==================================
+# importing libraries
 import pyspark
 from pyspark import SparkContext
 from pyspark import SparkConf
 import time
 from functools import reduce
 import re
+from StopWords import clean_stopwords
+# ==================================
 
-t1 = time.time()
 logFilename = "output.txt"  
 logFile = open(logFilename)
-logData = logFile.read().replace('\n','').replace('-', ' ')
-logsplit = logData.split()
+logData = logFile.read()
+logData = clean_stopwords(logData)
+ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
 
 def f1(tuparg,tuparg2):
     if tuparg2[0] in tuparg:
@@ -24,13 +32,16 @@ def f1(tuparg,tuparg2):
        
     return tuparg 
 
-CountMap = tuple(map(lambda word: (word,1), logsplit))
+t1 = time.time() # start time counter
+print ("Program started " + str(t1))
+CountMap = tuple(map(lambda word: (word,1), ListOnlyAlpha))
 Reduced =(reduce(lambda x,y: f1(x,y), CountMap))
 MyWord =  filter(lambda word :isinstance(word,str),Reduced )
 MyCount =  filter(lambda word :isinstance(word,int),Reduced )
 Mytuple = list(map(lambda word,count : (word,count), MyWord, MyCount))
 MySorted = Mytuple.sort(key = lambda tup : tup[1]) 
 
+print(Mytuple)
 print(MySorted)  
 
 t2 = time.time()
