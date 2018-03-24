@@ -1,16 +1,24 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
+# ==================================
+# map reduce of python to count words
+# ==================================
+# importing libraries
 import pyspark
 from pyspark import SparkContext
 from pyspark import SparkConf
 import time
 from functools import reduce
 import re
+from StopWords import clean_stopwords
+# ==================================
 
-t1 = time.time()
 logFilename = "output.txt"  
 logFile = open(logFilename)
-logData = logFile.read().replace('\n','').replace('-', ' ')
-logsplit = logData.split()
+logData = logFile.read()
+logData = clean_stopwords(logData)
+ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
 
 #function for counting words
 def f1(tuparg,tuparg2):
@@ -23,18 +31,18 @@ def f1(tuparg,tuparg2):
         tuparg +=tuparg2                            #add the tuple to the newly reduced list of tuple
     return tuparg                                   #return newly reduced tuple
 
-
-CountMap = tuple(map(lambda word: (word,1), logsplit))          
+t1 = time.time() # start time counter
+print ("Program started " + str(t1))
+CountMap = tuple(map(lambda word: (word,1), ListOnlyAlpha))
 Reduced =(reduce(lambda x,y: f1(x,y), CountMap))
-Myword =  filter(lambda word :isinstance(word,str),Reduced )
-Mycount =  filter(lambda word :isinstance(word,int),Reduced )
-Mytuple = list(map(lambda word,count : (word,count), Myword, Mycount))
+MyWord =  filter(lambda word :isinstance(word,str),Reduced )
+MyCount =  filter(lambda word :isinstance(word,int),Reduced )
+Mytuple = list(map(lambda word,count : (word,count), MyWord, MyCount))
 Mytuple.sort(key = lambda tup : tup[1]) 
+
+print(Mytuple)
+
  
-#Red_map = tuple(reduce(lambda x,y: f2(x,y), Reduced))
-#red_sort = sorted(Reduced, key = lambda tup :tup[1])
-#Red_sort = sorted(list(Reduced) ,key=lambda pair: pair[1])
-print(Mytuple)  
 
 t2 = time.time()
 
