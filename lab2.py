@@ -7,8 +7,8 @@ from html.parser import HTMLParser
 from bs4 import BeautifulSoup as bs
 import re, time, psutil, os, sys
 from functools import reduce
+from StopWords import clean_stopwords
 
-import StopWords
 # ================================
 # Functions
 def remove_duplicates(in_list):
@@ -40,23 +40,28 @@ Url = "https://www.oldbaileyonline.org/search.jsp?form=searchHomePage&_divs_full
 InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
+num_pages = 1000
 print("Started reading URL .....")
-for i in range(1,15):
-    print (i/15)
+for i in range(1,num_pages+1):
+    print (i,"/",num_pages)
     # use BeautifulSoup to strip HTML tags
     soup = bs(InputText, "html.parser").find(id="main2")
     textContainer = extract_text(soup, textContainer) #.encode('utf-8')
     # get nextlink page
     nextLink = soup.find("li",{"class" : "last"}).find('a').get('href')
+    
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-print (textContainer)
-textfile = open("Output.txt", "w+")
+
+textContainer = clean_stopwords(textContainer)
+textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remobe brackets
+textContainer = textContainer
+textfile = open("Output1000.txt", "w+")
 if sys.platform == 'darwin':
     # OS X
     textContainer = str(textContainer.encode('utf-8'))
-textfile.write(textContainer)
+textfile.write(textContainer.replace("', '"," ").replace("'",""))
 textfile.close()
 print ("text file written")
 # inputTxt = open("input.txt","r")
