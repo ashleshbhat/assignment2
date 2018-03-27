@@ -53,6 +53,7 @@ def stopwordsList ():
     stopwords += ['whoever', 'whole', 'whom', 'whose', 'why', 'will', 'with'] 
     stopwords += ['within', 'without', 'would','yet', 'you', 'your']
     stopwords += ['yours', 'yourself', 'yourselves']
+    #stopwords += ['4th', '5th', '6th','13th','20th','14th','7th','8th','9th']
     # stopwords += ['/\/\xc2/\/\xa0', 'xa', 'xc' ]
     return stopwords
 

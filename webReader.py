@@ -7,7 +7,7 @@
 # in order to create a large data set
 # specify the number of pages to read by modifying variable num_pages 
 #
-num_pages = 1000  # number of pages to read
+num_pages = 30  # number of pages to read
 #  ==================================
 # importing libraries
 from urllib.request import urlopen
@@ -52,14 +52,16 @@ for i in range(1,num_pages+1):
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-textContainer = clean_stopwords(textContainer)
+textContainer = str(clean_stopwords(textContainer))
 textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remove brackets
+
+
 textContainer = textContainer
-textfile = open("Output1000.txt", "w+")  # output textfile
+textfile = open("Output30.txt", "w+")  # output textfile
 # use unicode for OS X
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
     
-textfile.write(textContainer.replace("', '"," ").replace("'",""))
+textfile.write(textContainer.replace("', '"," ").replace("'","").replace(" th "," "))
 textfile.close()
 print ("text file written")
