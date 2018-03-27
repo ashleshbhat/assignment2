@@ -5,10 +5,10 @@
 from urllib.request import urlopen
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup as bs
-import re, time, psutil, os
+import re, time, psutil, os, sys
 from functools import reduce
+from StopWords import clean_stopwords
 
-import StopWords
 # ================================
 # Functions
 def remove_duplicates(in_list):
@@ -25,13 +25,10 @@ def extract_text(stringSoup, Container):
     for link in formTag.find_all('a'):
         string = link.get('href').replace("\n","")
         newTab = urlopen("https://www.oldbaileyonline.org/" + string)
-        Container += str(bs(newTab.read(), "html.parser").find(id="main2").get_text())
+        Container += str(bs(newTab.read(), "html.parser").find(id="main2").get_text().lower())
     return Container
 
 # ================================
-# get stopwords from list
-# stopwords = StopWords.stopwordsList()
-
 # string to store the text
 textContainer = ""
 
@@ -43,29 +40,37 @@ Url = "https://www.oldbaileyonline.org/search.jsp?form=searchHomePage&_divs_full
 InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
+num_pages = 1000
 print("Started reading URL .....")
-for i in range(1,2):
-    print (i/2)
+for i in range(1,num_pages+1):
+    print (i,"/",num_pages)
     # use BeautifulSoup to strip HTML tags
     soup = bs(InputText, "html.parser").find(id="main2")
     textContainer = extract_text(soup, textContainer) #.encode('utf-8')
     # get nextlink page
     nextLink = soup.find("li",{"class" : "last"}).find('a').get('href')
+    
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-# print (textContainer)
-# textfile = open("Output.txt", "w")
-# textfile.write(textContainer)
-
+textContainer = clean_stopwords(textContainer)
+textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remobe brackets
+textContainer = textContainer
+textfile = open("Output1000.txt", "w+")
+# use unicode for OS X
+if sys.platform == 'darwin':
+    textContainer = str(textContainer.encode('utf-8'))
+textfile.write(textContainer.replace("', '"," ").replace("'",""))
+textfile.close()
+print ("text file written")
 # inputTxt = open("input.txt","r")
 # for text in inputTxt.read():
 #     print(str(text))
 
-ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
-CountMap = map(lambda word: (word,1), ListOnlyAlpha)
-Reduced = reduce(lambda a,b: (a[0],a[1]+b[1]) if a[0] == b[0] else a , CountMap)
+# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
+# CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
+# Reduced = (reduce(lambda a,b: a+b , CountMap))
+# print(CountMap)
 # Reduced = reduce(lambda word,n: )
-
 
 # print(Count)
