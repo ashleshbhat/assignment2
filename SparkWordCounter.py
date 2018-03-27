@@ -35,8 +35,8 @@ logData = sc.textFile(logFile).cache()
 logData_count = logData.flatMap(lambda line: line.split(" ")) \
              .map(lambda word: (word, 1)) \
              .reduceByKey(lambda a, b: a + b)\
-             .map(lambda aTuple: (aTuple[1], aTuple[0])).sortByKey()\
-             .map(lambda aTuple: (aTuple[0], aTuple[1])).collect()
+             .map(lambda Tuple: (Tuple[1], Tuple[0])).sortByKey()\
+             .map(lambda Tuple: (Tuple[0], Tuple[1])).collect()
 
 t2 = time.time()        # end time
 #logData_count.saveAsTextFile("count")
