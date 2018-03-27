@@ -32,7 +32,7 @@ logFile = "Output30.txt" # specify data input set
 sc = SparkContext("local", "first app")
 logData = sc.textFile(logFile).cache()  
 
-logData_count = logData.flatMap(lambda line: StopWords.clean_stopwords(line)) \
+logData_count = logData.flatMap(lambda line: line.split(" ")) \
              .map(lambda word: (word, 1)) \
              .reduceByKey(lambda a, b: a + b)\
              .map(lambda aTuple: (aTuple[1], aTuple[0])).sortByKey()\

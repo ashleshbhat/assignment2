@@ -18,9 +18,10 @@ from StopWords import clean_stopwords
 
 logFilename = "output1.txt" #input file  
 logFile = open(logFilename)
-logData = logFile.read()
-logData = clean_stopwords(logData)
-ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
+# logData = clean_stopwords(logData)
+# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
+logData = logFile.read().replace("'"," ").replace(",","")
+logSplit = logData.split()
 
 
 #function for counting words
@@ -37,7 +38,7 @@ def f1(tuparg,tuparg2):
 t1 = time.time()                                    # start time counter
 print ("Program started " + str(t1)) 
 print ("tuple convertion...")                                   
-CountMap = tuple(map(lambda word: (word,1), ListOnlyAlpha))             #convert every word to tuple of word,number
+CountMap = tuple(map(lambda word: (word,1), logSplit))             #convert every word to tuple of word,number
 print ("Counting in progress...") 
 Reduced =(reduce(lambda x,y: f1(x,y), CountMap))                        #reduce using the above function to count the number of words
 print ("words filtering in progress...") 
@@ -59,8 +60,8 @@ print ("time used by map reduce: ",t2-t1)
 t0_hw1 = time.time()
 # create list with word freq
 wordFreqList = []
-for istr in ListOnlyAlpha:
-    wordFreqList.append([istr, ListOnlyAlpha.count(istr)])
+for istr in logSplit:
+    wordFreqList.append([istr, logSplit.count(istr)])
 
 # create dictionary with word freq
 # copy words and count from freqList to a dictionary
