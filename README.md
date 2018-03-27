@@ -9,10 +9,15 @@ For the Homework 2 we created 3 different programs:
 ## webReader.py
 
 ## mapReducePython.py
+
+To compare the runtime between the HW1 program and the sequentiell python map reduce we used the "output30.txt" file for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
+
+### Map Reduce
 ('took', 815), ('smith', 947), ('man', 965), ('time', 1145), ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148)
 
 time used by map reduce:  73.68411421775818
 
+### HW1 Counter
 said 2148
 prisoner 1597
 went 1460
@@ -28,7 +33,7 @@ took 815
 Dict processing time: 635.646905
 
 
-## SparkWordCounter.py:
+## SparkWordCounter.py
 
 
 ## Apache Spark
