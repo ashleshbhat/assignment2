@@ -53,13 +53,12 @@ for i in range(1,num_pages+1):
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-
 textContainer = clean_stopwords(textContainer)
 textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remobe brackets
 textContainer = textContainer
 textfile = open("Output1000.txt", "w+")
+# use unicode for OS X
 if sys.platform == 'darwin':
-    # OS X
     textContainer = str(textContainer.encode('utf-8'))
 textfile.write(textContainer.replace("', '"," ").replace("'",""))
 textfile.close()
