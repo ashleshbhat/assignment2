@@ -28,7 +28,7 @@ from pyspark import SparkConf
 import time
 
 t1 = time.time()    # start time
-logFile = "output100.txt" # specify data input set  
+logFile = "Output30.txt" # specify data input set  
 sc = SparkContext("local", "first app")
 logData = sc.textFile(logFile).cache()  
 

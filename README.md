@@ -8,11 +8,19 @@ For the Homework 2 we created 3 different programs:
 
 ## webReader.py
 
+Takes a search result from www.oldbaileyonline.org/ and extracts the text from all the links in the search results.
+The variable num_pages defines how many search results pages shall be screened.
+We created the following output files with increasing lengths:
+- Output1.txt
+- Output10.txt
+- Output30.txt
+- Output100.txt
+
 ## mapReducePython.py
 
-To compare the runtime between the HW1 program and the sequentiell python map reduce we used the "output30.txt" file for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
+To compare the runtime between the HW1 program and the sequentiell python map reduce we used the "Output30.txt" file for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
 
-### Map Reduce
+### Map Reduce Python
 ('took', 815), ('smith', 947), ('man', 965), ('time', 1145), ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148)
 
 time used by map reduce:  73.68411421775818
@@ -34,7 +42,12 @@ Dict processing time: 635.646905
 
 
 ## SparkWordCounter.py
+The usage of Sparks MapReduce offers an even more significant time reduction.
+For the same text file used in the example about ("Output30.txt") the following time is needed:
+- Countig time needed by Spark:  5.12509894371
 
+For the text file "Output100.txt" which should be roughly 3 times the size of "Output30.txt" just roughly double the time was needed:
+- Countig time needed by Spark: 9.65892505646
 
 ## Apache Spark
 

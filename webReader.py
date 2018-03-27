@@ -19,14 +19,6 @@ from StopWords import clean_stopwords
 
 # ================================
 # Functions
-def remove_duplicates(in_list):
-    out_list =[]
-    for val in in_list:
-        if not val in out_list:
-            out_list.append(val)
-    return out_list
-
-# -------------------------------- =
 def extract_text(stringSoup, Container):
     formTag = stringSoup.find("form")
     # access main2 and get the links
@@ -61,9 +53,9 @@ for i in range(1,num_pages+1):
     InputText = nextPage.read()
 
 textContainer = clean_stopwords(textContainer)
-textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remobe brackets
+textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remove brackets
 textContainer = textContainer
-textfile = open("Output1000.txt", "w+")
+textfile = open("Output1000.txt", "w+")  # output textfile
 # use unicode for OS X
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
