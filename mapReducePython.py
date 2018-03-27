@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 # ==================================
-# map reduce of python to count words
-# ==================================
+#
+# sequentiel map reduce of python to count words
+#
+#  ==================================
 # importing libraries
 import pyspark
 from pyspark import SparkContext
@@ -16,8 +18,9 @@ from StopWords import clean_stopwords
 
 logFilename = "output30.txt"  
 logFile = open(logFilename)
-logData = logFile.read().replace("'"," ").replace(",","")
-logSplit = logData.split()
+logData = logFile.read()
+logData = clean_stopwords(logData)
+ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
 
 
 #function for counting words
@@ -34,7 +37,7 @@ def f1(tuparg,tuparg2):
 t1 = time.time()                                    # start time counter
 print ("Program started " + str(t1)) 
 print ("tuple convertion...")                                   
-CountMap = tuple(map(lambda word: (word,1), logSplit))             #convert every word to tuple of word,number
+CountMap = tuple(map(lambda word: (word,1), ListOnlyAlpha))             #convert every word to tuple of word,number
 print ("Counting in progress...") 
 Reduced =(reduce(lambda x,y: f1(x,y), CountMap))                        #reduce using the above function to count the number of words
 print ("words filtering in progress...") 
@@ -49,4 +52,22 @@ t2 = time.time()
 print(Mytuple)
 print ("Done") 
 #print(Reduced)
-print ("time taken is ",t2-t1)
+print ("time used by map reduce: ",t2-t1)
+
+## ---------------------------------------
+# Homework 1 word counter
+t0_hw1 = time.time()
+# create list with word freq
+wordFreqList = []
+for istr in ListOnlyAlpha:
+    wordFreqList.append([istr, ListOnlyAlpha.count(istr)])
+
+# create dictionary with word freq
+# copy words and count from freqList to a dictionary
+wordFreqDict = {istr[0]:istr[1] for istr in wordFreqList}
+# sort dictionary by word count
+wordFreqDict = sorted(wordFreqDict.items(), key=lambda t:t[1], reverse=True)
+clocktimeHW1 = time.time() - t0_hw1
+print ("\nDict processing time: %f\n" %clocktimeHW1)
+for pair in wordFreqDict[:20]:
+    print (pair[0],pair[1])

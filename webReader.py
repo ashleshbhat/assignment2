@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# ==================================
+#
+# program to read in several webpages from www.oldbaileyonline.org/
+# in order to create a large data set
+# specify the number of pages to read by modifying variable num_pages 
+#
+num_pages = 1000  # number of pages to read
+#  ==================================
 # importing libraries
 from urllib.request import urlopen
 from html.parser import HTMLParser
@@ -40,7 +48,6 @@ Url = "https://www.oldbaileyonline.org/search.jsp?form=searchHomePage&_divs_full
 InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
-num_pages = 1000
 print("Started reading URL .....")
 for i in range(1,num_pages+1):
     print (i,"/",num_pages)
@@ -60,17 +67,7 @@ textfile = open("Output1000.txt", "w+")
 # use unicode for OS X
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
+    
 textfile.write(textContainer.replace("', '"," ").replace("'",""))
 textfile.close()
 print ("text file written")
-# inputTxt = open("input.txt","r")
-# for text in inputTxt.read():
-#     print(str(text))
-
-# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
-# CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
-# Reduced = (reduce(lambda a,b: a+b , CountMap))
-# print(CountMap)
-# Reduced = reduce(lambda word,n: )
-
-# print(Count)
