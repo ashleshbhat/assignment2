@@ -16,7 +16,7 @@ import re
 from StopWords import clean_stopwords
 # ==================================
 
-logFilename = "output30.txt"  
+logFilename = "output1.txt" #input file  
 logFile = open(logFilename)
 logData = logFile.read()
 logData = clean_stopwords(logData)

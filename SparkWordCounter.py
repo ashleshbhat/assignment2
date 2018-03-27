@@ -9,7 +9,7 @@
 #  ==================================
 # importing libraries
 import sys
-import os
+import os, StopWords
 if sys.platform == 'darwin':
     # OS X
     print ("using mac,\n if problems occur environment variables for spark need to be adapted")
@@ -32,7 +32,7 @@ logFile = "Output30.txt" # specify data input set
 sc = SparkContext("local", "first app")
 logData = sc.textFile(logFile).cache()  
 
-logData_count = logData.flatMap(lambda line: line.split(" ")) \
+logData_count = logData.flatMap(lambda line: StopWords.clean_stopwords(line)) \
              .map(lambda word: (word, 1)) \
              .reduceByKey(lambda a, b: a + b)\
              .map(lambda aTuple: (aTuple[1], aTuple[0])).sortByKey()\

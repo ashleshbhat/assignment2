@@ -18,15 +18,36 @@ We created the following output files with increasing lengths:
 
 ## mapReducePython.py
 
-To compare the runtime between the HW1 program and the sequentiell python map reduce we used the "Output30.txt" file for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
+To compare the runtime between the HW1 program and the sequentiell python map reduce we used the files "Output1.txt", "Output10.txt" and "Output30.txt" for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
 
-### Map Reduce Python
-('took', 815), ('smith', 947), ('man', 965), ('time', 1145), ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148)
+### "Output1.txt"
+- time used by map reduce:  0.0479738712310791
+    ('john', 29), ('man', 30), ('smith', 43), ('prisoner', 46)
 
-time used by map reduce:  73.68411421775818
+- Dict processing time: 0.081204
+    prisoner 46
+    smith 43
+    man 30
+    john 29
+    
+### "Output10.txt"
 
-### HW1 Counter
-said 2148
+- time used by map reduce:  8.993803977966309
+    ('john', 405), ('mr', 406), ('prisoner', 470), ('said', 564)
+
+- Dict processing time: 48.134708
+    said 564
+    prisoner 470
+    mr 406
+    john 405
+    house 360
+
+
+### "Output30.txt"
+- ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148) 
+    time used by map reduce:  73.68411421775818
+
+- said 2148
 prisoner 1597
 went 1460
 came 1280
