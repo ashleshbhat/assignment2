@@ -21,54 +21,57 @@ We created the following output files with increasing lengths:
 To compare the runtime between the HW1 program and the sequentiell python map reduce we used the files "Output1.txt", "Output10.txt" and "Output30.txt" for both programs. The results of both programs are the same but we can see signifiant time differences of almost a 10fold for the HW1 counter:
 
 ### "Output1.txt"
-- time used by map reduce:  0.0479738712310791
-    ('john', 29), ('man', 30), ('smith', 43), ('prisoner', 46)
+- time used by map reduce:  0.059348106384277344 sec
+   - ('john', 29), ('man', 30), ('smith', 43), ('prisoner', 46)
 
-- Dict processing time: 0.081204
-    prisoner 46
+- Dict processing time: 0.086846 sec
+    - prisoner 46
     smith 43
     man 30
     john 29
-    
+
 ### "Output10.txt"
 
-- time used by map reduce:  8.993803977966309
-    ('john', 405), ('mr', 406), ('prisoner', 470), ('said', 564)
+- time used by map reduce:  8.993803977966309 sec
+    - ('john', 405), ('mr', 406), ('prisoner', 470), ('said', 564)
 
-- Dict processing time: 48.134708
-    said 564
-    prisoner 470
-    mr 406
-    john 405
+- Dict processing time: 48.134708 sec
+    - said 564,
+    prisoner 470,
+    mr 406,
+    john 405,
     house 360
 
 
 ### "Output30.txt"
-- ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148) 
-    time used by map reduce:  73.68411421775818
+- time used by map reduce:  53.939241886138916 sec
+    - ('mr', 1216), ('john', 1258), ('house', 1265), ('came', 1280), ('went', 1460), ('prisoner', 1597), ('said', 2148) 
+    
 
-- said 2148
-prisoner 1597
-went 1460
-came 1280
-house 1265
-john 1258
-mr 1216
-time 1145
-man 965
-smith 947
-took 815
 
-Dict processing time: 635.646905
+- Dict processing time: 509.221863 sec
+    - prisoner 1597
+    went 1460
+    came 1280
+    house 1265
+    john 1258
+    mr 1216
+    time 1145
+    man 965
+    smith 947
+    took 815
+
 
 
 ## SparkWordCounter.py
-The usage of Sparks MapReduce offers an even more significant time reduction.
-For the same text file used in the example about ("Output30.txt") the following time is needed:
-- Countig time needed by Spark:  5.12509894371
+The usage of Sparks MapReduce offers an even more significant time reduction obtaining the same results.
+For the same text files used in the example above the following times are needed:
+- Countig time needed by Spark for "Output1.txt":   1.51037979126' sec
+- Countig time needed by Spark for "Output10.txt":  1.61414408684 sec
+- Countig time needed by Spark for "Output30.txt":  2.23153614998 sec
 
-For the text file "Output100.txt" which should be roughly 3 times the size of "Output30.txt" just roughly double the time was needed:
-- Countig time needed by Spark: 9.65892505646
+For the text file "Output100.txt" which should be roughly 3 times the size of "Output30.txt" almost no significant time change can be seen:
+- Countig time needed by Spark: 2.41390299797 sec
 
 ## Apache Spark
 
