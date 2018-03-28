@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 # ==================================
-# map reduce of python to count words
-# ==================================
+#
+# sequentiel map reduce of python to count words
+#
+#  ==================================
 # importing libraries
 import pyspark
 from pyspark import SparkContext
@@ -14,8 +16,10 @@ import re
 from StopWords import clean_stopwords
 # ==================================
 
-logFilename = "output30.txt"  
+logFilename = "Output1.txt" #input file  
 logFile = open(logFilename)
+# logData = clean_stopwords(logData)
+# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
 logData = logFile.read().replace("'"," ").replace(",","")
 logSplit = logData.split()
 
@@ -49,4 +53,22 @@ t2 = time.time()
 print(Mytuple)
 print ("Done") 
 #print(Reduced)
-print ("time taken is ",t2-t1)
+print ("time used by map reduce: ",t2-t1)
+
+## ---------------------------------------
+# Homework 1 word counter
+t0_hw1 = time.time()
+# create list with word freq
+wordFreqList = []
+for istr in logSplit:
+    wordFreqList.append([istr, logSplit.count(istr)])
+
+# create dictionary with word freq
+# copy words and count from freqList to a dictionary
+wordFreqDict = {istr[0]:istr[1] for istr in wordFreqList}
+# sort dictionary by word count
+wordFreqDict = sorted(wordFreqDict.items(), key=lambda t:t[1], reverse=True)
+clocktimeHW1 = time.time() - t0_hw1
+print ("\nDict processing time: %f\n" %clocktimeHW1)
+for pair in wordFreqDict[:20]:
+    print (pair[0],pair[1])

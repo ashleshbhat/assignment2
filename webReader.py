@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# ==================================
+#
+# program to read in several webpages from www.oldbaileyonline.org/
+# in order to create a large data set
+# specify the number of pages to read by modifying variable num_pages 
+#
+num_pages = 30  # number of pages to read
+#  ==================================
 # importing libraries
 from urllib.request import urlopen
 from html.parser import HTMLParser
@@ -11,14 +19,6 @@ from StopWords import clean_stopwords
 
 # ================================
 # Functions
-def remove_duplicates(in_list):
-    out_list =[]
-    for val in in_list:
-        if not val in out_list:
-            out_list.append(val)
-    return out_list
-
-# -------------------------------- =
 def extract_text(stringSoup, Container):
     formTag = stringSoup.find("form")
     # access main2 and get the links
@@ -40,7 +40,6 @@ Url = "https://www.oldbaileyonline.org/search.jsp?form=searchHomePage&_divs_full
 InputUrl = urlopen(Url)
 InputText = InputUrl.read()
 
-num_pages = 1000
 print("Started reading URL .....")
 for i in range(1,num_pages+1):
     print (i,"/",num_pages)
@@ -53,24 +52,16 @@ for i in range(1,num_pages+1):
     nextPage = urlopen("https://www.oldbaileyonline.org/"+nextLink)
     InputText = nextPage.read()
 
-textContainer = clean_stopwords(textContainer)
-textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remobe brackets
+textContainer = str(clean_stopwords(textContainer))
+textContainer = str(re.compile('[a-zA-Z]+').findall(textContainer))[1:-1] #remove brackets
+
+
 textContainer = textContainer
-textfile = open("Output1000.txt", "w+")
+textfile = open("Output30.txt", "w+")  # output textfile
 # use unicode for OS X
 if sys.platform == 'darwin':
     textContainer = str(textContainer.encode('utf-8'))
-textfile.write(textContainer.replace("', '"," ").replace("'",""))
+    
+textfile.write(textContainer.replace("', '"," ").replace("'","").replace(" th "," "))
 textfile.close()
 print ("text file written")
-# inputTxt = open("input.txt","r")
-# for text in inputTxt.read():
-#     print(str(text))
-
-# ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(textContainer)
-# CountMap = list(map(lambda word: (word,1), ListOnlyAlpha))
-# Reduced = (reduce(lambda a,b: a+b , CountMap))
-# print(CountMap)
-# Reduced = reduce(lambda word,n: )
-
-# print(Count)
