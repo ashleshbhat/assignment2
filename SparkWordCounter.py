@@ -27,10 +27,10 @@ from pyspark import SparkContext
 from pyspark import SparkConf
 import time
 
-t1 = time.time()    # start time
-logFile = "Output30.txt" # specify data input set  
+logFile = "Output1.txt" # specify data input set  
 sc = SparkContext("local", "first app")
 logData = sc.textFile(logFile).cache()  
+t1 = time.time()    # start time
 
 logData_count = logData.flatMap(lambda line: line.split(" ")) \
              .map(lambda word: (word, 1)) \

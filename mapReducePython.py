@@ -16,7 +16,7 @@ import re
 from StopWords import clean_stopwords
 # ==================================
 
-logFilename = "output1.txt" #input file  
+logFilename = "Output1.txt" #input file  
 logFile = open(logFilename)
 # logData = clean_stopwords(logData)
 # ListOnlyAlpha = re.compile('[a-zA-Z]+').findall(logData)
